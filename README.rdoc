@@ -21,3 +21,8 @@ email: string
 - email length must be within bounds
 - email must be unique
 - email must be valid
+
+Testing specs for likes:
+like: boolean
+chef_id: integer
+recipe_id: integer
