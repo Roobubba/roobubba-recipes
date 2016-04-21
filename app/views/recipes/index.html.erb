@@ -1,5 +1,4 @@
-<h1>All Recipes</h1>
-<hr/>
+<%= render 'shared/page_title', title: "All Recipes" %>
 
 <% @recipes.each do |recipe| %>
   <div class="container-fluid">
@@ -14,9 +13,14 @@
         <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
         <p><%= recipe.summary %></p>
         <p>
-          <span class='quiet'><small><%= time_ago_in_words(recipe.created_at) %> ago</small></span>
+          <span class='quiet'><small>First posted <%= time_ago_in_words(recipe.created_at) %> ago</small></span>
+          <% if recipe.created_at != recipe.updated_at %>
+          <span class='quiet'><small> (Last edited <%= time_ago_in_words(recipe.updated_at) %> ago)</small></span>
+          <% else %>
+          <% end %>
         </p>
-      </div>
+
+</div>
     </div>
     <hr/>
   </div>

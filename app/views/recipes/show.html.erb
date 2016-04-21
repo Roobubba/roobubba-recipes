@@ -1,12 +1,7 @@
+<%= render 'shared/page_title', title: @recipe.name %>
 
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8 center">
-        <p>
-          <h1><%= @recipe.name %></h1>
-        </p>  
-      </div>
-    </div>
+
     <div class="row">
 
       <div class="col-md-4 pull-right center">
@@ -17,6 +12,7 @@
       </div>
       <div class="col-md-8">
         <p>
+          <%= link_to "Edit this recipe", edit_recipe_path(@recipe), class: "btn btn-success pull-right" %>
           <h3><%= @recipe.summary %></h3>
         </p>
         <div class="well">
@@ -25,7 +21,7 @@
               Steps:
             </strong>
           </p>
-          <%= @recipe.description %>
+          <%= simple_format(@recipe.description) %>
         </div>
       </div>
     </div>
