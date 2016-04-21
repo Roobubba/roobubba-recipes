@@ -26,3 +26,18 @@ Testing specs for likes:
 like: boolean
 chef_id: integer
 recipe_id: integer
+
+Chefs, what we have already:
+- Chef model and validations
+- chefs table with columns chefname and email
+
+To do:
+- Add passwords to chefs table for authentication and logging in
+- Use email as log in credentials as email is unique
+- Add ability to register new chefs to use the app
+- Add ability to display chef profile
+- Add ability to list all chefs in the app
+- Ability for chefs to log in/out
+- restrict actions create, edit and like for logged in chefs only
+- restrict edit of recipes by chefs who created them
+- Admin chefs?

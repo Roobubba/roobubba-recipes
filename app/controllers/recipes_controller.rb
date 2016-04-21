@@ -9,23 +9,43 @@ class RecipesController < ApplicationController
   end
   
   def new
-    @recipe  = Recipe.new
+    if logged_in?
+      @recipe  = Recipe.new
+    else
+      flash[:danger] = "You must be logged in to create a new recipe"
+      redirect_to root_path
+    end
   end
   
   def create
-    @recipe = Recipe.new(recipe_params)
-    @recipe.chef = Chef.find(2) # To do later!
-    
-    if @recipe.save
-      flash[:success] = "Your recipe was created successfully!"
-      redirect_to recipes_path
+    if logged_in?
+      @recipe = Recipe.new(recipe_params)
+      @recipe.chef = Chef.find(2) # To do later!
+      
+      if @recipe.save
+        flash[:success] = "Your recipe was created successfully!"
+        redirect_to recipes_path
+      else
+        render 'new'
+      end
     else
-      render :new
+      flash[:danger] = "You must be logged in to create a new recipe"
+      redirect_to root_path
     end
   end
   
   def edit
-    @recipe  = Recipe.find(params[:id])
+    if !logged_in?
+      flash[:danger] = "You must be logged in to edit a recipe"
+      redirect_to :back
+    else
+      @recipe  = Recipe.find(params[:id])
+      if @recipe.chef != current_user
+        flash[:danger] = "You can only edit your own recipes!"
+        redirect_to :back
+      else
+      end
+    end
   end
   
   def update
@@ -35,7 +55,7 @@ class RecipesController < ApplicationController
       flash[:success] = "Successfully edited " + @recipe.name + "!"
       redirect_to recipe_path(@recipe)
     else
-    render :new
+    render 'new'
     end
   end
   
