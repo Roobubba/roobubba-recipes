@@ -1,5 +1,7 @@
 <%= render 'shared/page_title', title: "All Recipes" %>
 
+<%= will_paginate %>
+
 <% @recipes.each do |recipe| %>
   <div class="container-fluid">
     <div class="row">
@@ -36,3 +38,5 @@
     <hr/>
   </div>
 <% end %>
+
+<%= will_paginate %>
