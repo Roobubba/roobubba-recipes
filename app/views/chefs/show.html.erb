@@ -15,7 +15,7 @@
   </div>
 
 
-  <% @chef.recipes.each do |recipe| %>
+  <% @recipes.each do |recipe| %>
     <div class="row">
       <div class="well col-md-6 col-md-offset-3">
       <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
