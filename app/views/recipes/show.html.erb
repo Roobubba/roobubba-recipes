@@ -19,13 +19,16 @@
         <div class="show_recipe">
           <%= image_tag(@recipe.picture.url, class: "gravatar") if @recipe.picture? %>
         </div>
+
         <div class="well">
-          <p>
-            <p>Style: <%= render @recipe.styles %></p>
-            <p>Ingredients: <%= render @recipe.ingredients %></p>
-          </p>
-        </div>
-        <div class="well">
+
+        <% if @recipe.styles.any? %>
+          <p><strong>Styles: </strong><%= render @recipe.styles %></p>
+        <% end %>
+        <% if @recipe.ingredients.any? %>
+          <p><strong>Ingredients: </strong><%= render @recipe.ingredients %></p>
+        <% end %>
+
           <p>
             <strong>
               Steps:
