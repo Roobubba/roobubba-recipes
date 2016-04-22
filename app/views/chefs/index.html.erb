@@ -1,22 +1,30 @@
 <%= render 'shared/page_title', title: "All Chefs" %>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2 center">
-      <%= will_paginate %>
-      <br>
-  
-  
-      <% @chefs.each do |chef| %>
-      
+
+<ul class="nav nav-tabs">
+  <li>
+    <%= link_to "Recipes", recipes_path %>
+  </li>
+  <li class='active'>
+    <%= link_to "Chefs", chefs_path %>
+  </li>
+</ul>
+
+<%= will_paginate %>
+
+  <% @chefs.each do |chef| %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 center">
+    
+          <br>
             <%= link_to gravatar_for(chef, size: 200), chef_path(chef) %>
-            <p>
-              <h5>Chef name: <%= chef.chefname %></h5>
-            </p>
-      
-      
-      <% end %>
-      
-      <%= will_paginate %>
+              <p>
+                <h5>Chef name: <%= chef.chefname %></h5>
+              </p>
+    
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  <% end %>
+<%= will_paginate %>
+
