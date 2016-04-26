@@ -1,0 +1,18 @@
+<%= render 'shared/page_title', title: 'Review by ' + @review.chef.chefname + ' for ' + @review.recipe.name %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <section class="chef_info center">
+        <%= link_to gravatar_for(@review.chef, size: 100), chef_path(@review.chef) %>
+        <h5>Chef name: <%= @review.chef.chefname %></h5>
+      </section>
+    </div>
+    <div class="col-md-6 well">
+      <h4><%= link_to @review.recipe.name, recipe_path(@review.recipe) %></h4>
+      <p><%= simple_format(@review.body) %></p>
+    </div>
+  </div>
+</div>
+
+<%= render 'shared/return_buttons' %>

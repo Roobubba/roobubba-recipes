@@ -1,0 +1,26 @@
+<%= render 'shared/page_title', title: "Reviews for Recipe: " + @recipe.name %>
+
+<%= will_paginate %>
+<br>
+
+<% @reviews.find_each do |review| %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <section class="chef_info center">
+          <%= link_to gravatar_for(review.chef, size: 100), chef_path(review.chef) %>
+          <h5>Chef name: <%= review.chef.chefname %></h5>
+        </section>
+      </div>
+      <div class="col-md-6 well">
+        <p><strong>Recipe: </strong><%= link_to review.recipe.name, recipe_path(review.recipe) %></p>
+        <p><strong>Review: </strong><%= review.body %></p>
+      </div>
+    </div>
+    <hr/>
+  </div>
+<% end %>
+
+<%= will_paginate %>
+
+<%= render 'shared/return_buttons' %>
