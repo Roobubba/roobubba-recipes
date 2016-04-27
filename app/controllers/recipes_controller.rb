@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   
-  before_action :set_recipe, only: [:edit, :update, :show, :like]
+  before_action :set_recipe, only: [:edit, :update, :show, :like, :already_reviewed?]
   before_action :require_user, except: [:show, :index]
   before_action :require_same_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
@@ -10,7 +10,7 @@ class RecipesController < ApplicationController
   end
 
   def show
-
+    @reviews = Review.where(:recipe_id => params[:id]).paginate(page: params[:page], per_page: 3)
   end
   
   def new
@@ -59,7 +59,7 @@ class RecipesController < ApplicationController
     flash[:success] = "Recipe Deleted"
     redirect_to recipes_path
   end
-  
+
   private
     def recipe_params
       params.require(:recipe).permit(:name, :summary, :description, :picture, style_ids: [], ingredient_ids: [])

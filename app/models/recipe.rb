@@ -26,6 +26,15 @@ class Recipe < ActiveRecord::Base
     self.likes.where(like: false).size    
   end
   
+  def num_reviews
+    self.reviews.size
+  end
+  
+  def already_reviewed?(chef)
+    checkuser = Review.find_by(chef_id: chef.id, recipe_id: self.id)
+    !!checkuser
+  end
+  
   private
     def picture_size
       if picture.size > 3.megabytes

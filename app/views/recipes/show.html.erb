@@ -2,55 +2,88 @@
 
 <div class="container-fluid">
 
-    <div class="row">
+  <div class="row">
 
-      <div class="col-md-4 pull-right center">
-        <%= link_to gravatar_for(@recipe.chef, size: 200), chef_path(@recipe.chef) %>
-        <p>
-          <h5>Brought to you by <%= @recipe.chef.chefname %></h5>
-        </p>
-      </div>
-      <div class="col-md-8">
-        <% if logged_in? and (@recipe.chef == current_user || current_user.admin?) %>
-          <%= link_to "Edit this recipe", edit_recipe_path(@recipe), class: "btn btn-success pull-right" %>
-        <% end %>
-        <% if logged_in? and current_user.admin? %>
-          <%= link_to "Delete this recipe", @recipe, method: :delete, data: { confirm: "Are you sure you want to delete this recipe?" } %>
-        <% end %>
-        <h3><%= @recipe.summary %></h3>
-        <div class="show_recipe">
-          <%= image_tag(@recipe.picture.url, class: "gravatar") if @recipe.picture? %>
+    <div class="col-xs-12 col-md-4 pull-right center">
+      <%= link_to gravatar_for(@recipe.chef, size: 200), chef_path(@recipe.chef) %>
+      <p>
+        <h5>Brought to you by <%= @recipe.chef.chefname %></h5>
+      </p>
+    </div>
+    <div class="col-md-8">
+
+      <div class="col-xs-12 text-center nopad">
+        <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+          <% if logged_in? and (@recipe.chef == current_user || current_user.admin?) %>
+            <%= link_to "Edit this recipe", edit_recipe_path(@recipe), class: "btn btn-warning" %>
+          <% end %>
         </div>
+        <div class="col-xs-12 col-sm-4">
+          <% if logged_in? and current_user.admin? %>
+            <%= link_to "Delete this recipe", @recipe, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to delete this recipe?" } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-8 col-xs-12">
+      <p><h3><%= @recipe.summary %></h3></p>
+      <div class="show_recipe">
+        <%= image_tag(@recipe.picture.url, class: "gravatar") if @recipe.picture? %>
+      </div>
 
-        <div class="well">
+      <div class="well">
 
-        <% if @recipe.styles.any? %>
-          <p><strong>Styles: </strong><%= render @recipe.styles %></p>
-        <% end %>
-        <% if @recipe.ingredients.any? %>
-          <p><strong>Ingredients: </strong><%= render @recipe.ingredients %></p>
-        <% end %>
+      <% if @recipe.styles.any? %>
+        <p><strong>Styles: </strong><%= render @recipe.styles %></p>
+      <% end %>
+      <% if @recipe.ingredients.any? %>
+        <p><strong>Ingredients: </strong><%= render @recipe.ingredients %></p>
+      <% end %>
 
-          <p>
-            <strong>
-              Steps:
-            </strong>
-          </p>
-          <%= simple_format(@recipe.description) %>
-          <div class="pull-right">
-            <%= link_to like_recipe_path(@recipe, like: true), method: :post do %>
-            <i class="glyphicon glyphicon-thumbs-up"></i>
-            &nbsp
-            <%= @recipe.thumbs_up_total %>
-            <% end %>
-            &nbsp&nbsp&nbsp&nbsp
-            <%= link_to like_recipe_path(@recipe, like: false), method: :post do %>
-            <i class="glyphicon glyphicon-thumbs-down"></i>&nbsp<%= @recipe.thumbs_down_total %>
-            <% end %>
-          </div>
+        <p>
+          <strong>
+            Steps:
+          </strong>
+        </p>
+        <%= simple_format(@recipe.description) %>
+        <div class="pull-right">
+          <%= link_to like_recipe_path(@recipe, like: true), method: :post do %>
+          <i class="glyphicon glyphicon-thumbs-up"></i>
+          &nbsp
+          <%= @recipe.thumbs_up_total %>
+          <% end %>
+          &nbsp&nbsp&nbsp&nbsp
+          <%= link_to like_recipe_path(@recipe, like: false), method: :post do %>
+          <i class="glyphicon glyphicon-thumbs-down"></i>&nbsp<%= @recipe.thumbs_down_total %>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+  
+  <div class="row">
+    <div class="col-xs-8">
+      <%= link_to recipe_reviews_path(@recipe) do %>
+        <h3>Reviews:</h3>
+      <% end %>
+      <% if logged_in? and !@recipe.already_reviewed?(current_user) %>
+        <%= link_to "Add Review", new_recipe_review_path(recipe_id: @recipe.id), class: "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 nopad">
+      <div class="col-md-8">
+        <div class="well">
+          <% if @recipe.reviews.any? %>
+            <%= render 'reviews/list' %>
+          <% end %>
+        </div>
+      </div> 
+    </div>
+  
+  </div>
 
+</div>
 <%= render 'shared/return_buttons' %>

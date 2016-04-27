@@ -8,5 +8,5 @@ class Review < ActiveRecord::Base
   default_scope -> { order(updated_at: :desc) }
   
   validates_uniqueness_of :chef, scope: :recipe
-  
+
 end

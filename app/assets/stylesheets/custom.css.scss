@@ -77,3 +77,23 @@ span.picture {
 .input_checkbox input {
   width: auto !important;
 }
+
+.block1 {
+  background-color: orange;
+}
+.block2 {
+  background-color: blue;
+}
+.nopad {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.valign {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.btn {
+  margin-bottom: 10px;
+}

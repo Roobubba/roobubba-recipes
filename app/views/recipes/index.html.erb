@@ -37,7 +37,16 @@
           <% else %>
           <% end %>
         </p>
-        <div class="pull-right">
+        <div class="col-xs-6 text-left nopad">
+          Reviews: 
+          <% if recipe.num_reviews > 0 %>
+            <%= link_to recipe.num_reviews, recipe_reviews_path(recipe) %>
+          <% else %>
+          0
+          <% end %>
+        </div>
+        
+        <div class="col-xs-6 text-right nopad">
           <%= link_to like_recipe_path(recipe, like: true), method: :post do %>
             <i class="glyphicon glyphicon-thumbs-up"></i>&nbsp<%= recipe.thumbs_up_total %>
           <% end %>
