@@ -29,7 +29,7 @@
     <div class="col-md-8 col-xs-12">
       <p><h3><%= @recipe.summary %></h3></p>
       <div class="show_recipe">
-        <%= image_tag(@recipe.picture.url, class: "gravatar") if @recipe.picture? %>
+        <%= image_tag(@recipe.picture.url, class: "gravatar img-responsive") if @recipe.picture? %>
       </div>
 
       <div class="well">
